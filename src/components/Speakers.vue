@@ -5,12 +5,29 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'speakers',
   data () {
     return {
       msg: 'This is speakers page'
     }
+  },
+  methods: {
+    getSpeaker () {
+      const data = {
+        token: 'rRUschVZsmvTujURPjipCEEVTr2buGCf'
+      }
+      this.getSpeakers(data)
+        .then(response => {
+          console.log('response===>', response)
+        })
+        .catch(err => {
+          console.log('err==>', err)
+        })
+    },
+    ...mapActions(['getSpeakers'])
   }
 }
 </script>
