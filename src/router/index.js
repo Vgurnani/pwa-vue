@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
-import VueSidebarMenu from 'vue-sidebar-menu'
 import Router from 'vue-router'
-import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -11,7 +9,6 @@ import Speakers from '@/components/Speakers'
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
-Vue.use(VueSidebarMenu)
 
 export default new Router({
   mode: 'history',

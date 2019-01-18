@@ -13,7 +13,6 @@ export const getSpeakers = ({}, data) => {
       }
     })
       .then(response => {
-        console.log('==============--Success', response)
         resolve(response)
       }).catch(err => {
         reject(err)

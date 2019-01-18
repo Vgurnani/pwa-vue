@@ -2,6 +2,12 @@
 	<div class="full-width">
 		<h2 class="d-block d-sm-none d-md-none d-lg-none sidebar-heading">Event Name</h2>
 		<ul class="sidemenu">
+            <li>
+				<a href="">
+					<img src="/static/img/b-logo.svg" alt="B Logo" title="B Logo" /> 
+					<span><strong>Event home</strong></span>
+				</a>
+			</li>
 			<li>
 				<a href="">
 					<img src="/static/img/agenda.svg" alt="Agenda" title="Agenda" /> 
