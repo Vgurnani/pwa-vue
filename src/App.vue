@@ -8,24 +8,39 @@
       <sidebar-menu :menu="menu" />
     </main>
   </div> -->
-  <div id="demo" :class="[{'collapsed' : collapsed}]">
+<!--   <div id="demo" :class="[{'collapsed' : collapsed}]">
     <div class="demo">
       <router-view/>
     </div>
     <sidebar-menu :menu="menu" :collapsed="collapsed" @collapse="onCollapse" :theme="selectedTheme" />
+  </div> -->
+<div id="app">
+  <div class="row cover-row">
+    <div class="sidebar-menu">
+     <sidebar-menu/>
+    </div>
+    <div class="main-content">
+     <router-view/>
+    </div>
   </div>
+</div>
 </template>
 
 <script>
+import SidebarMenu from '@/components/SidebarMenu.vue'
+
 export default {
   name: 'app',
+  components: {
+    SidebarMenu
+  },
   data () {
     return {
       menu: [
         {
           href: '/speakers',
           title: 'Speakers',
-          icon: 'fa fa-user'
+          icon: '../static/img/agenda.svg'
         },
         {
           href: '/sponsors',
@@ -38,31 +53,6 @@ export default {
 }
 </script>
 
-<style>
-body,
-html {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Source Sans Pro', sans-serif;
-  background-color: #f2f4f7;
-}
-
-#demo {
-  padding-left: 350px;
-}
-#demo.collapsed {
-  padding-left: 50px;
-}
-
-.demo {
-  padding: 50px;
-}
-
-.badge-danger {
-  background-color: #ff2a2a;
-  color: #fff;
-}
-</style>
+<style lang="sass">
+  @import "styles/global.sass";
+</style> 

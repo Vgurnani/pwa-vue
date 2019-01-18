@@ -1,0 +1,319 @@
+/**--Font Face--**/
+@font-face
+  font-family: "Helvetica Neue"
+  font-style: normal
+  font-weight: 300
+  src: url("../static/fonts/HelveticaNeueLight.ttf") format("truetype")
+
+@font-face
+  font-family: "Helvetica Neue"
+  font-style: medium
+  font-weight: 500
+  src: url("../static/fonts/HelveticaNeueMedium.ttf") format("truetype")
+
+@font-face
+  font-family: "Helvetica Neue"
+  font-style: bold
+  font-weight: 700
+  src: url("../static/fonts/HelveticaNeue-Heavy.ttf") format("truetype")
+
+/**--Variables--**/
+$black-color: #000
+$white-color: #fff
+$header-grey: #dadada
+$heading-dark-grey: #3d3d3c
+$link-color: #009fe3
+
+$font-family: "Helvetica Neue", Helvetica, Arial, SimHei, 黑体, "Hiragino Sans GB", 冬青黑体, sans-serif
+$font-size: 17px
+$font-weight: 500
+$letter-spacing: 0.5px
+
+$breakpoint-ipad: 1024px
+$breakpoint-tablet: 991px
+$breakpoint-mobile: 576px
+
+/**--CSS--**/
+body, html
+  margin: 0
+  padding: 0
+
+body
+  font-family: $font-family
+  background-color: $white-color
+  font-size: $font-size
+  font-weight: $font-weight
+  letter-spacing: $letter-spacing
+  overflow-x: hidden
+
+h1
+  font-weight: $font-weight
+  font-size: 25px
+  color: $black-color
+
+h3
+  font-size: $font-size
+  color: $heading-dark-grey
+
+h4
+  font-weight: $font-weight
+  font-size: 16px
+  color: $heading-dark-grey
+  &.heading
+    padding: 10px 12px
+    background: $header-grey
+
+p
+  font-weight: 300
+  font-size: 16px
+  color: #878787
+
+ul
+  list-style-type: none
+  padding: 0
+
+li
+  display: inline-block
+  margin: 0 10px
+
+a
+  color: $link-color
+  transition: all 0.1s ease-in
+  &:hover, &:active
+    outline: none
+    text-decoration: none
+    transition: all 0.3s ease-in
+
+
+/**--Generic Classes--**/
+.link-color
+  color: $link-color
+
+.clear-btn
+  background: transparent
+  border: transparent
+  padding: 0
+  &:hover, &:active, &:focus, &:active:focus
+    outline: none !important
+    box-shadow: none !important
+    background: $white-color !important
+    border: 0 !important
+
+.full-width
+  width: 100%
+
+/**--Specific CSS--**/
+.cover-row
+  min-height: 100vh
+
+.sidebar-menu
+  background-color: $black-color
+  max-width: 350px
+  width: 100%
+  padding: 70px 0
+  z-index: 9
+  transition: all 0.1s ease-in
+  .sidemenu
+    li
+      font-weight: 300
+      display: block
+      line-height: 24px
+      margin: 0
+      a
+        color: $white-color
+        padding: 13px 20px 12px 30px
+        width: 100%
+        display: block
+        &:hover
+          background-color: $link-color
+        img
+          max-width: 28px
+          margin-right: 10px
+          min-height: 28px
+        span
+          letter-spacing: 1px
+  .sidebar-heading
+    color: #fff
+    padding-top: 20px
+    font-weight: 300
+    font-size: 25px
+
+.expanded
+  .sidebar-menu
+    transition: all 0.3s ease-in
+    max-width: 0
+    & *
+      display: none
+  .main-content
+    width: 100%
+    transition: all 0.3s ease-in
+
+.main-content
+  width: calc(100% - 350px)
+  padding: 70px 100px 50px
+  transition: all 0.1s ease-in
+
+#demo
+  padding-left: 350px
+  &.collapsed
+    padding-left: 50px
+
+.demo
+  padding: 50px
+
+.badge-danger
+  background-color: #ff2a2a
+  color: $white-color
+
+.speaker-image
+  width: 65px
+  height: 65px
+  border-radius: 50%
+  margin-right: 15px
+  background-color: $header-grey
+  & > img
+    width: 100%
+    border-radius: 50%
+
+.bordered-box
+  border-bottom: 1px solid #c6c6c6
+
+.custom-link
+  cursor: pointer
+  color: $link-color !important
+
+.modal-content
+  border-radius: 0
+
+.bottom-navigation
+  position: fixed
+  bottom: 0
+  left: 0
+  right: 0
+  width: 100%
+  z-index: 9
+  background: $black-color
+  height: 60px
+  padding-top: 5px
+  ul
+    position: relative
+    &:after
+      content: ""
+      width: 100px
+      height: 4px
+      background: $white-color
+      position: absolute
+      bottom: -10px
+      border-radius: 50px
+    li
+      .btn-secondary
+        padding: 0
+        background: $white-color
+        border: 0
+        height: 2px
+        width: 30px
+        &:hover, &:active, &:focus, &:active:focus
+          outline: none
+          box-shadow: none
+          background: $white-color
+          border: 0
+        span
+          display: block
+          background: $white-color
+          &:after, &:before
+            content: ''
+            width: 30px
+            height: 2px
+            background: $white-color
+            display: block
+          &:after
+            margin-top: -10px
+          &:before
+            position: absolute
+            bottom: 5px
+      max-width: 34px
+      text-align: center
+      a
+        img
+          width: 90%
+          min-height: 34px
+
+/**--Modal Css--**/
+.modal-dialog
+  max-width: 700px
+
+.modal
+  .speaker-image
+    margin: auto
+    width: 110px
+    height: 110px
+    margin-bottom: 15px
+  .modal-close
+    position: absolute
+    right: -36px
+    top: 10px
+    img
+      max-width: 28px
+
+/**--Responsive CSS--**/
+@media (max-width: $breakpoint-ipad)
+  .main-content
+    width: calc(100% - 340px)
+    padding: 70px 30px 50px
+
+  .sidebar-menu
+    max-width: 300px
+
+
+@media (max-width: $breakpoint-tablet)
+  .sidebar-menu
+    position: absolute
+    left: -100%
+    top: 0
+    bottom: 0
+    max-width: 100vw
+    padding: 0
+    .sidebar-heading
+      text-align: center
+      margin-bottom: 60px
+
+  .main-content
+    width: 100%
+    padding: 0px 60px 50px
+
+  .expanded
+    .sidebar-menu
+      left: 0
+      max-width: 100vw
+      & *
+        display: inline-block
+
+  h1
+    background: #000
+    color: #fff
+    text-align: center
+    padding: 20px 0 10px
+    margin-bottom: 0
+
+  h4
+    &.heading
+      padding: 15px 12px 18px
+
+@media (max-width: $breakpoint-mobile)
+  .main-content
+    padding-left: 0
+    padding-right: 0
+
+  .row
+    & > div:first-child
+      .speaker-box
+        margin-bottom: 20px
+        &:not(.bordered-box)
+          border-bottom: 1px solid #c6c6c6
+
+  .modal
+    .modal-close
+      right: 16px
+
+  .modal-dialog
+    max-width: 91%

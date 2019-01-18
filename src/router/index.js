@@ -3,6 +3,8 @@ import BootstrapVue from 'bootstrap-vue'
 import VueSidebarMenu from 'vue-sidebar-menu'
 import Router from 'vue-router'
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import Sponsors from '@/components/Sponsors'
 import Speakers from '@/components/Speakers'
