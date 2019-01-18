@@ -14,17 +14,17 @@
 					<span>Agenda</span>
 				</a>
 			</li>
-			<li>
+			<li v-bind:class="'bg-link-color'">
 				<router-link :to='{ name: "Speakers"}'>
 					<img src="/static/img/speaker.svg" alt="Speakers" title="Speakers" /> 
 					<span>Speakers</span>
 				</router-link>
 			</li>
 			<li>
-				<router-link :to='{ name: "Sponsors"}'>
-				<img src="/static/img/sponsors.svg" alt="Sponsors" title="Sponsors" /> 
+				<a href="">
+					<img src="/static/img/sponsors.svg" alt="Sponsors" title="Sponsors" /> 
 					<span>Sponsors</span>
-				</router-link>
+				</a>
 			</li>
 			<li>
 				<a href="">

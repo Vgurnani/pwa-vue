@@ -15,7 +15,7 @@
 
       <b-row>
         <b-col sm="6" class="mb-4" v-for="(item, index) in keyNoteSpeakers" :key="item.id">
-          <div :class="getSpeakerClass(index, keyNoteSpeakers.length)">
+          <div  class="speaker-box d-flex flex-row pb-2 pl-3 pr-3 pl-sm-0 pl-md-0 pl-lg-0 pr-sm-0 pr-md-0 pr-lg-0" v-bind:class="getSpeakerClass(index, keyNoteSpeakers.length)">
             <div class="speaker-image">
               <img src="/static/img/person.jpg" alt="User" title="Criss Harms" />
             </div>
@@ -36,7 +36,7 @@
 
       <b-row>
         <b-col sm="6" class="mb-4" v-for="(item, index) in speakers" :key="item.id">
-          <div :class="getSpeakerClass(index, speakers.length)">
+          <div class="speaker-box d-flex flex-row pb-2 pl-3 pr-3 pl-sm-0 pl-md-0 pl-lg-0 pr-sm-0 pr-md-0 pr-lg-0" v-bind:class="getSpeakerClass(index, speakers.length)">
             <div class="speaker-image">
               <img src="/static/img/person.jpg" alt="User" title="Criss Harms" />
             </div>
@@ -153,9 +153,9 @@ export default {
       return size
     },
     getSpeakerClass (index, length) {
-      let speakerClass = 'speaker-box d-flex flex-row bordered-box pb-2 pl-3 pr-3 pl-sm-0 pl-md-0 pl-lg-0 pr-sm-0 pr-md-0 pr-lg-0'
+      let speakerClass = 'bordered-box'
       if (length >= 2 && (((length - 2) === index && length % 2 === 0) || (length - 1) === index)) {
-        speakerClass = 'speaker-box d-flex flex-row pb-2 pl-3 pr-3 pl-sm-0 pl-md-0 pl-lg-0 pr-sm-0 pr-md-0 pr-lg-0'
+        speakerClass = ''
       }
       return speakerClass
     },
