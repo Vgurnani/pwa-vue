@@ -20,9 +20,11 @@
               <img src="/static/img/person.jpg" alt="User" title="Criss Harms" />
             </div>
             <div class="speaker-details">
-              <h3 class="mb-0"><a class="custom-link" @click="showSpeakerInfo(item)">{{item.prefix}} {{item.first_name}} {{item.last_name}}</a></h3>
-              <p>{{item.job_title}},<br/>
-              {{item.company}}</p>
+              <h3 class="mb-0"><a class="custom-link" @click="showSpeakerInfo(item)">{{getTagWithLanguage(item, 'prefix')}} {{getTagWithLanguage(item, 'first_name')}} {{getTagWithLanguage(item, 'last_name')}}</a></h3>
+              <p>
+                <span v-if="getTagWithLanguage(item, 'job_title')" v-html="getTagWithLanguage(item, 'job_title')"></span>,<br/>
+                <span v-if="getTagWithLanguage(item, 'company')">{{getTagWithLanguage(item, 'company')}}</span>
+              </p>
             </div>
           </div>
         </b-col>
@@ -54,9 +56,12 @@
           <b-col class="text-center pb-0 pb-md-5 pb-lg-5" offset-lg="1" lg="10">
             <b-btn class="clear-btn float-right modal-close"><img src="/static/img/close-icon.png" alt="Close" title="Close" @click="hideSpeakerInfo()" /></b-btn>
             <div class="speaker-image mt-5"><img src="/static/img/person.jpg" alt="User" title="Criss Harms" /></div>
-            <h3 class="mb-0 link-color">{{speakerInfo.prefix}} {{speakerInfo.first_name}} {{speakerInfo.last_name}}</h3>
-            <p>{{speakerInfo.job_title}},<br/> {{speakerInfo.company}}</p>
-            <span v-html="speakerInfo.bio"></span>
+            <h3 class="mb-0 link-color">{{getTagWithLanguage(speakerInfo, 'prefix')}} {{getTagWithLanguage(speakerInfo, 'first_name')}} {{getTagWithLanguage(speakerInfo, 'last_name')}}</h3>
+            <p>
+              <span v-if="getTagWithLanguage(speakerInfo, 'job_title')" v-html="getTagWithLanguage(speakerInfo, 'job_title')"></span>,<br/>
+              <span v-if="getTagWithLanguage(speakerInfo, 'company')">{{getTagWithLanguage(speakerInfo, 'company')}}</span>
+            </p>
+            <span v-if="getTagWithLanguage(speakerInfo, 'bio')"><p v-html="getTagWithLanguage(speakerInfo, 'bio')"></p></span>
 
             <div v-if="sizeOfObject(speakerInfo.sessions)">
               <p>Sessions:</p>
@@ -65,7 +70,7 @@
                 <p>
                   <strong>{{date}}</strong><br/>
                   <span class="link-color" v-for="session in sessionArray">
-                    {{session.name}}
+                    {{getTagWithLanguage(session, 'name')}}
                   </span>
                 </p>
               </div>
@@ -122,7 +127,8 @@ export default {
       speakers: [],
       keyNoteSpeakers: [],
       speakerInfo: '',
-      showSpeakerInfoBox: false
+      showSpeakerInfoBox: false,
+      current_lang: this.$store.state.languages.es
     }
   },
   methods: {
@@ -158,6 +164,10 @@ export default {
         speakerClass = ''
       }
       return speakerClass
+    },
+    getTagWithLanguage (item, tag) {
+      const langTag = `${tag}_${this.current_lang}`
+      return item[langTag] ? item[langTag] : item[tag]
     },
     ...mapActions(['getSpeakers'])
   },
