@@ -6,6 +6,7 @@
     </div>
     <div class="main-content">
      <router-view/>
+     <mobile-menu/>
     </div>
   </div>
 </div>
@@ -13,11 +14,12 @@
 
 <script>
 import SidebarMenu from '@/components/SidebarMenu.vue'
+import MobileMenu from '@/components/MobileMenu.vue'
 
 export default {
   name: 'app',
   components: {
-    SidebarMenu
+    SidebarMenu, MobileMenu
   }
 }
 </script>

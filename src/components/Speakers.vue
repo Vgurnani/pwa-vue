@@ -66,10 +66,10 @@
             <div v-if="sizeOfObject(speakerInfo.sessions)">
               <p>Sessions:</p>
 
-              <div v-for="(sessionArray, date) in speakerInfo.sessions">
+              <div v-for="(sessionArray, date) in speakerInfo.sessions" :key="sessionArray.id">
                 <p>
                   <strong>{{date}}</strong><br/>
-                  <span class="link-color" v-for="session in sessionArray">
+                  <span class="link-color" v-for="session in sessionArray" :key="session.id">
                     {{getTagWithLanguage(session, 'name')}}
                   </span>
                 </p>
@@ -80,39 +80,6 @@
       </b-modal>
 
     </b-container>
-
-    <div class="bottom-navigation on-mobile d-xl-none d-lg-none">
-      <ul class="d-flex flex-wrap flex-row align-items-center justify-content-center">
-        <li>
-          <b-btn v-on:click="toggleSidebar"><span></span></b-btn>
-        </li>
-        <li>
-          <a href="">
-            <img src="/static/img/agenda.svg" alt="Agenda" title="Agenda" />
-          </a>
-        </li>
-        <li>
-          <router-link :to='{ name: "Speakers"}'>
-            <img src="/static/img/speaker.svg" alt="Speakers" title="Speakers" />
-          </router-link>
-        </li>
-        <li>
-          <router-link :to='{ name: "Sponsors"}'>
-            <img src="/static/img/sponsors.svg" alt="Sponsors" title="Sponsors" />
-          </router-link>
-        </li>
-        <li>
-          <a href="">
-            <img src="/static/img/linkedin.svg" alt="Networking" title="Networking" />
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <img src="/static/img/question.svg" alt="Feedback" title="Feedback" />
-          </a>
-        </li>
-      </ul>
-    </div>
   </div>
 </template>
 
@@ -132,15 +99,6 @@ export default {
     }
   },
   methods: {
-    toggleSidebar: function () {
-      const el = document.body
-
-      if (el.classList.contains('expanded')) {
-        el.classList.remove('expanded')
-      } else {
-        el.classList.add('expanded')
-      }
-    },
     showSpeakerInfo (info) {
       this.showSpeakerInfoBox = true
       this.speakerInfo = info
