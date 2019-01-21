@@ -7,49 +7,30 @@
         </b-col>
       </b-row>
 
-      <b-row class="mb-3">
-        <b-col>
-          <h4 class="heading">Keynote Speakers</h4>
-        </b-col>
-      </b-row>
+      <div v-for="item in allSpeakers" :key="item.id">
+        <b-row class="mb-3">
+          <b-col>
+            <h4 class="heading">{{item.title}}</h4>
+          </b-col>
+        </b-row>
 
-      <b-row>
-        <b-col sm="6" class="mb-4" v-for="(item, index) in keyNoteSpeakers" :key="item.id">
-          <div  class="speaker-box d-flex flex-row pb-2 pl-3 pr-3 pl-sm-0 pl-md-0 pl-lg-0 pr-sm-0 pr-md-0 pr-lg-0" v-bind:class="getSpeakerClass(index, keyNoteSpeakers.length)">
-            <div class="speaker-image">
-              <img src="/static/img/person.jpg" alt="User" title="Criss Harms" />
+        <b-row>
+          <b-col sm="6" class="mb-4" v-for="(contact, index) in item.contacts" :key="contact.id">
+            <div  class="speaker-box d-flex flex-row pb-2 pl-3 pr-3 pl-sm-0 pl-md-0 pl-lg-0 pr-sm-0 pr-md-0 pr-lg-0" v-bind:class="getSpeakerClass(index, item.contacts.length)">
+              <div class="speaker-image">
+                <img src="/static/img/person.jpg" alt="User" title="Criss Harms" />
+              </div>
+              <div class="speaker-details">
+                <h3 class="mb-0"><a class="custom-link" @click="showSpeakerInfo(contact)">{{getTagWithLanguage(contact, 'prefix')}} {{getTagWithLanguage(contact, 'first_name')}} {{getTagWithLanguage(contact, 'last_name')}}</a></h3>
+                <p>
+                  <span v-if="getTagWithLanguage(contact, 'job_title')" v-html="getTagWithLanguage(contact, 'job_title')"></span>,<br/>
+                  <span v-if="getTagWithLanguage(contact, 'company')">{{getTagWithLanguage(contact, 'company')}}</span>
+                </p>
+              </div>
             </div>
-            <div class="speaker-details">
-              <h3 class="mb-0"><a class="custom-link" @click="showSpeakerInfo(item)">{{getTagWithLanguage(item, 'prefix')}} {{getTagWithLanguage(item, 'first_name')}} {{getTagWithLanguage(item, 'last_name')}}</a></h3>
-              <p>
-                <span v-if="getTagWithLanguage(item, 'job_title')" v-html="getTagWithLanguage(item, 'job_title')"></span>,<br/>
-                <span v-if="getTagWithLanguage(item, 'company')">{{getTagWithLanguage(item, 'company')}}</span>
-              </p>
-            </div>
-          </div>
-        </b-col>
-      </b-row>
-
-      <b-row class="mb-3">
-        <b-col>
-          <h4 class="heading">Industry Speakers</h4>
-        </b-col>
-      </b-row>
-
-      <b-row>
-        <b-col sm="6" class="mb-4" v-for="(item, index) in speakers" :key="item.id">
-          <div class="speaker-box d-flex flex-row pb-2 pl-3 pr-3 pl-sm-0 pl-md-0 pl-lg-0 pr-sm-0 pr-md-0 pr-lg-0" v-bind:class="getSpeakerClass(index, speakers.length)">
-            <div class="speaker-image">
-              <img src="/static/img/person.jpg" alt="User" title="Criss Harms" />
-            </div>
-            <div class="speaker-details">
-              <h3 class="mb-0"><a class="custom-link" @click="showSpeakerInfo(item)">{{item.prefix}} {{item.first_name}} {{item.last_name}}</a></h3>
-              <p>{{item.job_title}},<br/>
-              {{item.company}}</p>
-            </div>
-          </div>
-        </b-col>
-      </b-row>
+          </b-col>
+        </b-row>
+      </div>
 
       <b-modal id="modal1" v-model="showSpeakerInfoBox" hide-footer centered hide-header>
         <b-row class="mb-3">
@@ -66,11 +47,13 @@
             <div v-if="sizeOfObject(speakerInfo.sessions)">
               <p>Sessions:</p>
 
-              <div v-for="(sessionArray, date) in speakerInfo.sessions" :key="sessionArray.id">
+              <div v-for="sessionArray in speakerInfo.sessions" :key="sessionArray.id">
                 <p>
-                  <strong>{{date}}</strong><br/>
-                  <span class="link-color" v-for="session in sessionArray" :key="session.id">
-                    {{getTagWithLanguage(session, 'name')}}
+                  <span v-for="session in sessionArray" :key="session.id">
+                    <strong>{{getFormatedDate(session.start)}}</strong><br/>
+                    <span class="link-color">
+                      {{getTagWithLanguage(session, 'name')}}
+                    </span>
                   </span>
                 </p>
               </div>
@@ -85,17 +68,20 @@
 
 <script>
 import { mapActions } from 'vuex'
+import languageTag from '@/mixins/languageTag'
+import dateHelper from '@/mixins/dateHelper'
 
 export default {
   name: 'speakers',
+  mixins: [languageTag, dateHelper],
   data () {
     return {
       msg: 'Speakers',
+      allSpeakers: [],
       speakers: [],
       keyNoteSpeakers: [],
       speakerInfo: '',
-      showSpeakerInfoBox: false,
-      current_lang: this.$store.state.languages.es
+      showSpeakerInfoBox: false
     }
   },
   methods: {
@@ -123,10 +109,6 @@ export default {
       }
       return speakerClass
     },
-    getTagWithLanguage (item, tag) {
-      const langTag = `${tag}_${this.current_lang}`
-      return item[langTag] ? item[langTag] : item[tag]
-    },
     ...mapActions(['getSpeakers'])
   },
   mounted: function () {
@@ -136,8 +118,7 @@ export default {
     this.getSpeakers(data)
       .then(response => {
         const responseData = response.data
-        this.keyNoteSpeakers = responseData.speakers['keynote_speaker'].contacts
-        this.speakers = responseData.speakers['speaker'].contacts
+        this.allSpeakers = responseData.speakers
       })
       .catch(err => {
         console.log('err==>', err)
